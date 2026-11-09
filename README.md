@@ -34,6 +34,16 @@ Optional, additional integration:
 # Getting Started
 You can run the Kafdrop JAR directly, via Docker, or in Kubernetes.
 
+## === Instructions for AWS MSK (managed kafka) ==
+
+Set up the port forwarding for your MSK
+
+```
+mvn clean install -DskipTests
+export KAFKA_BROKERCONNECT="your-b1,your-b2,your-b3"
+java -jar target/kafdrop-4.0.0.jar   --kafka.brokerConnect="$KAFKA_BROKERCONNECT"
+```
+
 ## Running from JAR
 ```sh
 java --add-opens=java.base/sun.nio.ch=ALL-UNNAMED \
