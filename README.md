@@ -40,7 +40,12 @@ Set up the port forwarding for your MSK
 
 ```
 mvn clean install -DskipTests
+#These should be the actual broker hostnames on AWS
 export KAFKA_BROKERCONNECT="your-b1,your-b2,your-b3"
+#Check your credentials
+eval "$(aws configure export-credentials --profile default --format env)"
+aws sts get-caller-identity
+#Actually run it
 java -jar target/kafdrop-4.0.0.jar   --kafka.brokerConnect="$KAFKA_BROKERCONNECT"
 ```
 
