@@ -37,16 +37,19 @@ You can run the Kafdrop JAR directly, via Docker, or in Kubernetes.
 ## === Instructions for AWS MSK (managed kafka) ==
 
 Set up the port forwarding for your MSK
+The authentication is handled through the kafka.properties.
+If you need to connect locally, move the file
 
 ```
 mvn clean install -DskipTests
 #These should be the actual broker hostnames on AWS
-export KAFKA_BROKERCONNECT="your-b1,your-b2,your-b3"
+#See output of the startBastion.sh script in the spark-emr-example repo
+export KAFKA_BROKERS_ALL="your-b1,your-b2,your-b3"
 #Check your credentials
 eval "$(aws configure export-credentials --profile default --format env)"
 aws sts get-caller-identity
 #Actually run it
-java -jar target/kafdrop-4.0.0.jar   --kafka.brokerConnect="$KAFKA_BROKERCONNECT"
+java -jar target/kafdrop-4.0.0.jar   --kafka.brokerConnect="$KAFKA_BROKERS_ALL"
 ```
 
 ## Running from JAR
